@@ -1,0 +1,10 @@
+@use "sass:map";
+
+$list: (
+    color-first: #092d74,
+    color-second: #ffe000
+);
+
+@function get($name) {
+    @return map.get($list, $name);
+}

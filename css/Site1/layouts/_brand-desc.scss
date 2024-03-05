@@ -1,0 +1,71 @@
+$select: ".brand-desc" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+
+@mixin base {
+    $bp: 800;
+
+    #{$select} {
+        &__group {
+            @include group.contain($gutter: 0rem) {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1em;
+
+                flex: 1 1 50%;
+            }
+        }
+
+        &__logo {
+            background: #fea30b;
+
+            > img {
+                width: queries.cascade-em(464);
+            }
+        }
+
+        &__text {
+            font-size: fonts.cascade-em(55);
+
+            @include background.color-map(
+                $background-color: var(--color-first),
+                $text-color: white
+            ) {
+            }
+        }
+
+        &__desc {
+            max-width: 15em;
+        }
+
+        @media all and (min-width: queries.set($bp)) {
+            &__text {
+                padding-top: 4em;
+                padding-bottom: 4em;
+            }
+        }
+
+        @media all and (max-width: queries.set($bp)) {
+            &__group {
+                flex-direction: column;
+            }
+
+            &__text,
+            &__logo {
+                padding: 2em 1em;
+            }
+
+            font-size: 0.9em;
+        }
+
+        @content;
+    }
+}

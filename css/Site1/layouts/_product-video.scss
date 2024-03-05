@@ -1,0 +1,20 @@
+$select: ".product-video" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+@mixin base {
+    #{$select} {
+        text-align: center;
+
+        &__title {
+            line-height: 1;
+            font-size: clamp(fonts.cascade-em(60), 9vw, fonts.cascade-em(113));
+            text-transform: uppercase;
+            text-shadow: 0 0 1em white, 0 0 1em white, 0 0 1em white;
+        }
+
+        @content;
+    }
+}

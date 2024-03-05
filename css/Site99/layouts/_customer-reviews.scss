@@ -1,0 +1,86 @@
+$select: ".customer-reviews" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        --section-block-margin: 7rem;
+
+        font-weight: bold;
+        text-align: center;
+
+        blockquote {
+            line-height: 1.25;
+
+            &::before {
+                content: "\201C";
+            }
+
+            &::after {
+                content: "\201D";
+            }
+        }
+
+        figcaption {
+            text-transform: uppercase;
+        }
+
+        @include background.color-map(
+            $background-color: #b5d8e9,
+            $text-color: var(--color-first)
+        ) {
+        }
+
+        &__title {
+            @include text.section-title;
+        }
+
+        &__reviews {
+            @include fonts.base-rem(59);
+
+            --carousel-length: 20em;
+            --carousel-offset: 5em;
+        }
+
+        &__review {
+            @include space.between-flow-elements($gap: 3rem) {
+            }
+        }
+
+        &__rating {
+            max-width: queries.cascade-em(399);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &__button {
+        }
+
+        &__footer {
+        }
+
+        @media all and (max-width: queries.set(800)) {
+            font-size: 0.8em;
+
+            &__title {
+                max-width: 10em;
+            }
+
+            &__reviews {
+                font-size: 2em;
+
+                --carousel-length: 75vw;
+            }
+        }
+
+        @content;
+    }
+}

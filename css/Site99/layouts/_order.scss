@@ -1,0 +1,95 @@
+$select: ".order" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+
+$space: 6rem;
+
+@mixin base {
+    #{$select} {
+        font-size: max(16px, 1em);
+        overflow: hidden;
+
+        &__in {
+            padding-top: 0;
+            padding-bottom: #{$space};
+        }
+
+        &__group {
+            @include group.contain(2rem);
+            justify-content: space-between;
+        }
+
+        &__header {
+            padding: #{$space} 1rem;
+
+            @include fonts.base-rem(75);
+
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        &__title {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        &__callout {
+            font-size: fonts.cascade-em(48);
+        }
+
+        &__form {
+            flex-basis: 100%;
+        }
+
+        &__offer-image {
+            flex-basis: queries.em(386);
+        }
+
+        &__offer-details {
+            flex-basis: 100%;
+        }
+
+        @media all and (max-width: queries.set(1660)) {
+            &__in {
+                max-width: 120rem;
+            }
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__header {
+                max-width: 14em;
+                margin: auto;
+            }
+        }
+
+        @content;
+    }
+}
+
+@mixin responsive {
+    #{$select} {
+        @media all and (max-width: queries.set(960)) {
+            &__form,
+            &__offer-image {
+                flex-basis: 100%;
+            }
+
+            &__offer-image {
+                display: none;
+            }
+        }
+
+        @media all and (max-width: queries.get(document-mobile-portrait)) {
+            &__header {
+                font-size: 7vw;
+            }
+        }
+    }
+}

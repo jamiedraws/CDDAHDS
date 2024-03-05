@@ -1,0 +1,60 @@
+$select: ".content" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "Shared/scss/templates/base/abstracts/list";
+
+@mixin base {
+    #{$select} {
+        &__text {
+            @include space.between-flow-elements($gap: 2rem) {
+            }
+        }
+
+        @content;
+    }
+}
+
+@mixin sub-page {
+    #{$select} {
+        &--sub-page {
+            font-size: max(16px, 1em);
+            text-align: left;
+
+            ol,
+            ul {
+                @include space.between-flow-elements($gap: 3rem) {
+                }
+                margin-left: 3.5rem;
+
+                ol,
+                ul {
+                    margin-left: 2.5rem;
+
+                    + * {
+                        margin-top: 2.5rem;
+                    }
+                }
+
+                ol {
+                    list-style: lower-alpha;
+                }
+            }
+
+            #{$select} {
+                &__text {
+                    @include space.between-flow-elements($gap: 2rem) {
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}

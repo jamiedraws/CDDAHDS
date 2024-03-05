@@ -1,0 +1,17 @@
+$select: ".link" !default;
+
+// abstracts
+@use "./../config/fonts";
+
+// components
+@use "Shared/scss/templates/base/components/link";
+
+@mixin base {
+    @include link.base {
+        &__advisal {
+            font-size: fonts.cascade-rem(30);
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,195 @@
+@use "sass:map";
+
+$select: ".nav" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/background";
+
+// layouts
+@use "Shared/scss/templates/base/layouts/nav" with (
+    $colors: (
+        background: white,
+        text: currentColor
+    ),
+    $mq: (
+        container-min: 101vw,
+        container-max: 101vw
+    )
+);
+
+@mixin base {
+    @include nav.base {
+        --logo-width: #{queries.cascade-em(125)};
+
+        font-size: inherit;
+
+        &--is-end-page {
+            position: relative;
+        }
+
+        &__logo {
+            max-width: var(--logo-width);
+            display: inline-block;
+
+            img {
+                width: var(--logo-width);
+            }
+        }
+
+        &__in > &__logo {
+            padding: 0;
+        }
+
+        &__list {
+            z-index: 1;
+            position: relative;
+        }
+
+        & &__link:hover,
+        & &__link:focus,
+        &__link > button:hover,
+        &__link > button:focus {
+            outline: none;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        &__label:not(&__label--is-selected) {
+            span,
+            &::after {
+                -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+            }
+        }
+    }
+
+    @include nav.drawer {
+        &__label {
+            font-size: 1.6em;
+            margin: 0;
+        }
+
+        & > &__group {
+            justify-content: space-between;
+        }
+
+        &__group > &__label {
+            order: -1;
+        }
+
+        &__actions {
+            margin-left: auto;
+            padding-left: 0.5em;
+        }
+
+        &__underlay {
+            z-index: 2;
+        }
+
+        &__list {
+            font-size: 1.4em;
+            text-align: left;
+
+            > * {
+                flex-basis: 100%;
+                justify-content: flex-start;
+
+                position: relative;
+            }
+        }
+
+        &__list > &__logo {
+            --logo-width: #{queries.cascade-em(150)};
+
+            margin: 0;
+            box-sizing: content-box;
+        }
+
+        &__link {
+            padding: 1.5rem;
+        }
+
+        &__pane {
+            min-width: queries.em(310);
+            width: 15vw;
+        }
+
+        &__pane,
+        &__drop__group {
+            transform: translateX(103%);
+            left: auto;
+            right: 0;
+        }
+    }
+
+    #{$select} {
+        @content;
+    }
+
+    @include is-minibar();
+    @include is-end-page();
+}
+
+@mixin is-start-page {
+    #{$select} {
+        &--is-start-page {
+            @media all and (min-width: queries.set(1200)) {
+                #{$select} {
+                    &__in > #{$select}__logo {
+                        transition: transform 0.3s ease-in-out;
+                        transform-origin: top;
+                        transform: scale(2);
+                    }
+
+                    &__in > #{$select}__order {
+                        opacity: 0;
+                        transform: translateX(100%);
+                        transition: 0.3s ease-in-out;
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin is-end-page {
+    #{$select} {
+        &--is-end-page {
+            #{$select} {
+                &__group {
+                    justify-content: center;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin is-minibar {
+    #{$select} {
+        &--is-minibar {
+            @media all and (max-width: map.get(nav.$mq, container-min)) {
+                #{$select} {
+                    &__logo {
+                        transform: scale(1);
+                    }
+
+                    &__order {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}

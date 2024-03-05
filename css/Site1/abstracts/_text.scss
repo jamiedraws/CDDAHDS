@@ -1,0 +1,18 @@
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+@mixin section-title {
+    font-weight: 800;
+    font-size: fonts.cascade-em(87);
+    line-height: 1;
+    text-transform: uppercase;
+    text-align: center;
+
+    border-bottom: #{queries.cascade-rem(6)} solid;
+    padding-bottom: 0.25em;
+
+    max-width: 15em;
+    width: 100%;
+    margin: auto;
+}

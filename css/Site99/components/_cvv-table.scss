@@ -1,0 +1,31 @@
+$select: ".cvv-table" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/chart";
+
+@mixin base {
+    #{$select} {
+        max-width: queries.get(section-max);
+
+        @include chart.structure;
+        @include chart.inline-grid;
+
+        img {
+            min-width: queries.cascade-em(115);
+        }
+
+        table table {
+            margin-top: 2rem;
+        }
+
+        td:first-child {
+            font-weight: normal;
+        }
+
+        @content;
+    }
+}

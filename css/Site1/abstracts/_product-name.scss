@@ -1,0 +1,24 @@
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+@mixin word-stack($base-rem: 34) {
+    @include fonts.base-rem($base-rem);
+    font-weight: 500;
+
+    b {
+        display: flex;
+        flex-direction: column;
+
+        text-transform: uppercase;
+        line-height: 0.9;
+        font-size: fonts.cascade-em(78);
+    }
+
+    sup {
+        bottom: 0;
+        margin: 0;
+    }
+
+    @content;
+}

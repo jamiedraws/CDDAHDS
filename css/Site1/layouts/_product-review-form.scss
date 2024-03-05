@@ -1,0 +1,44 @@
+$select: ".product-review-form" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+
+@mixin base {
+    #{$select} {
+        &__header {
+            margin-bottom: 3rem;
+        }
+
+        &__title {
+        }
+
+        &__desc {
+            font-size: fonts.em(16);
+        }
+
+        &__fieldset {
+            @include group.contain($gutter: 1rem) {
+            }
+        }
+
+        &__take-some {
+            flex-grow: 1;
+            flex-basis: 10em;
+        }
+
+        &__take-all {
+            flex-basis: 100%;
+        }
+
+        &__button {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        @content;
+    }
+}

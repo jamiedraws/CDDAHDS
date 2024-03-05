@@ -1,0 +1,100 @@
+// utils
+@use "Shared/scss/templates/base/utils/scope";
+@use "Shared/scss/templates/base/utils/svg-icon";
+
+// components
+@use "./../components/validation-summary-errors" as vse;
+@use "./../components/validate";
+@use "./../components/order-table";
+@use "./../components/offer-details";
+@use "./../components/form";
+@use "./../components/payment";
+@use "./../components/cvv-table";
+@use "./../components/status-screen";
+@use "./../components/braintree";
+@use "Shared/scss/templates/base/components/amazon-coupon";
+
+// layouts
+@use "./../layouts/order";
+@use "./../layouts/modal-dialog";
+@use "./../layouts/express-checkout";
+@use "./../layouts/checkout";
+@use "./../layouts/fieldset";
+@use "./../layouts/offer-options";
+@use "./../layouts/offer-option";
+@use "./../layouts/product-review-form";
+
+@mixin order-form {
+    // utils
+    @include scope.for-template {
+        @include order-table.base;
+    }
+
+    @include svg-icon.base;
+    @include svg-icon.combobox;
+
+    // components
+    @include validate.base;
+    @include validate.promo-code;
+    @include vse.base;
+
+    @include form.base;
+    @include form.field-icon;
+    @include form.field-label;
+    @include form.field-button;
+    @include form.field-button-label;
+    @include form.select;
+    @include form.checkbox;
+    @include form.radio;
+    @include form.inline-combobox-label;
+    @include form.cvv;
+
+    @include payment.form;
+
+    @include offer-details.base;
+
+    @include cvv-table.base;
+
+    @include status-screen.initialize;
+    @include status-screen.inline;
+    @include status-screen.checkout-form;
+
+    @include amazon-coupon.base;
+
+    @include scope.for-template {
+        @include braintree.base;
+        @include braintree.alias;
+    }
+
+    // layouts
+    @include order.base;
+    @include order.responsive;
+    @include modal-dialog.base;
+
+    @include checkout.base;
+    @include fieldset.base;
+    @include fieldset.frame;
+
+    @include scope.for-mobile {
+        @include order.responsive;
+    }
+
+    @include scope.for-template {
+        @include express-checkout.base;
+        @include express-checkout.paypal-button;
+    }
+
+    @include offer-options.base;
+    @include offer-option.base;
+}
+
+@mixin review {
+    // utils
+
+    // components
+    @include form.radio-rate;
+    @include status-screen.product-review-form;
+
+    // layouts
+    @include product-review-form.base;
+}

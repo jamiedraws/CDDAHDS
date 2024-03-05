@@ -1,0 +1,46 @@
+$select: ".offer-options" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/divider-line";
+@use "Shared/scss/templates/base/abstracts/burst";
+
+@mixin base {
+    #{$select} {
+        $separator-color: #b5c4c9;
+
+        &__group {
+            @include group.contain($gutter: 0.5rem) {
+            }
+        }
+
+        &__option {
+            flex-basis: auto;
+        }
+
+        &__separator {
+            @include divider-line.base;
+            @include divider-line.column;
+
+            color: #{$separator-color};
+        }
+
+        &__burst {
+            @include burst.circle($size: 2.5em, $background: $separator-color);
+
+            font-size: fonts.cascade-em(20);
+        }
+
+        @media all and (max-width: queries.set(1350)) {
+            &__separator {
+                @include divider-line.row;
+            }
+        }
+
+        @content;
+    }
+}

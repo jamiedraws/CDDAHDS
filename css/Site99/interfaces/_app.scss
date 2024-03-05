@@ -1,0 +1,66 @@
+$base: 1;
+$scroll-offset: 4em;
+
+// utils
+@use "Shared/scss/templates/base/utils/unit-conversion" with (
+    $base: $base
+);
+@use "Shared/scss/templates/base/utils/scope";
+@use "Shared/scss/templates/base/utils/sr";
+@use "./../utils/view" with (
+    $scroll-offset: $scroll-offset
+);
+@use "./../utils/section";
+
+// components
+@use "./../components/link";
+@use "Shared/scss/templates/base/components/skip-link";
+@use "./../components/promo-banner";
+@use "./../components/list";
+
+// layouts
+@use "./../layouts/document" with (
+    $base: $base,
+    $scroll-offset: $scroll-offset
+);
+@use "./../layouts/header";
+@use "./../layouts/nav";
+@use "./../layouts/footer";
+@use "./../layouts/content";
+
+@mixin critical {
+    // utils
+    @include view.base;
+    @include section.base;
+    @include sr.base;
+
+    // components
+    @include link.base;
+    @include skip-link.base;
+    @include promo-banner.base;
+    @include list.base;
+
+    // layouts
+    @include document.base;
+
+    @include scope.get-root {
+        @include document.root;
+    }
+
+    @include scope.for-template {
+        @include document.body;
+    }
+
+    @include header.base;
+    @include nav.base;
+    @include footer.base;
+
+    @include content.base;
+    @include content.sub-page;
+
+    @content;
+}
+
+@mixin defer {
+    @content;
+}

@@ -1,0 +1,122 @@
+$select: ".use" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        $gutter: 0.5rem;
+
+        &__grid {
+            display: grid;
+            grid-template-areas: "title" "desc" "carousel";
+            grid-template-columns: 100%;
+        }
+
+        &__title {
+            grid-area: title;
+
+            @include text.section-title;
+
+            margin-top: 5rem;
+        }
+
+        &__desc {
+            grid-area: desc;
+
+            font-weight: 500;
+            font-size: fonts.cascade-em(41);
+
+            max-width: 30em;
+        }
+
+        &__carousel {
+            grid-area: carousel;
+
+            width: 100%;
+            margin: 5rem 0;
+        }
+
+        $bp: queries.set(800);
+
+        @media all and (min-width: $bp) {
+            &__list {
+                list-style: none;
+
+                @include group.contain($gutter) {
+                    display: flex;
+                    align-items: center;
+
+                    &:not(:last-child)::after {
+                        content: "";
+                        display: inline-block;
+                        background: url(/images/Site1/arrow.svg) no-repeat;
+                        width: queries.cascade-em(37);
+                        height: queries.cascade-em(28);
+                    }
+                }
+
+                justify-content: center;
+
+                > li:not(:last-child)::after {
+                    margin-left: calc(#{$gutter} * 2);
+                }
+
+                img {
+                    max-width: queries.cascade-em(458);
+                    max-width: clamp(16em, 25vw, queries.cascade-em(458));
+                }
+            }
+
+            &__carousel {
+                button {
+                    display: none;
+                }
+            }
+
+            &__desc {
+                margin: 2rem auto;
+            }
+        }
+
+        @media all and (max-width: $bp) {
+            font-size: 0.8em;
+
+            &__grid {
+                grid-template-areas: "title" "carousel" "desc";
+                grid-template-columns: 100%;
+            }
+
+            &__carousel {
+                --carousel-button-color-inactive: var(--body-copy-color);
+            }
+
+            &__desc {
+                max-width: 18em;
+                text-align: center;
+
+                margin: 0 auto 5rem;
+            }
+
+            &__list {
+                img {
+                    max-width: queries.cascade-em(700);
+                    margin: auto;
+                }
+
+                > li:not(:first-child) {
+                    display: none;
+                }
+            }
+        }
+
+        @content;
+    }
+}

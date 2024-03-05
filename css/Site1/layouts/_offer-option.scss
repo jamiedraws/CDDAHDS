@@ -1,0 +1,108 @@
+$select: ".offer-option" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+
+@mixin base {
+    #{$select} {
+        b {
+            color: #ff6000;
+        }
+
+        &__group {
+            @include group.contain($gutter: 1rem) {
+            }
+        }
+
+        &__picture {
+            flex-basis: queries.cascade-em(165);
+            width: queries.cascade-em(165);
+        }
+
+        &__text {
+            flex: 1;
+
+            @include space.between-flow-elements($gap: 2rem) {
+            }
+        }
+
+        &__offer {
+            font-size: fonts.cascade-em(30);
+            font-weight: 600;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__list {
+            margin-left: 1em;
+            b {
+                color: inherit;
+            }
+        }
+
+        &__checkbox {
+            border: 1px solid currentColor;
+            transition: border-color 0.2s ease-in-out;
+            border-radius: 2em;
+            padding: 1em;
+            align-items: center;
+            cursor: pointer;
+            b {
+                color: inherit;
+            }
+
+            [class*="text"] {
+                > * {
+                    display: block;
+                }
+            }
+        }
+
+        input[type="radio"]:checked ~ &__checkbox,
+        &__checkbox:hover,
+        &__checkbox:focus {
+            border-color: #ff6000;
+        }
+
+        &__combobox {
+        }
+
+        &__button {
+        }
+
+        // just a modifier for when we are only showing 1 item in step 1
+        &--solo {
+            @media all and (max-width: queries.get(document-mobile-portrait)) {
+                font-size: 3.3vw;
+            }
+
+            #{$select} {
+                &__picture {
+                    flex-basis: 15em;
+                    width: 15em;
+                }
+                @media all and (max-width: queries.get(document-mobile-portrait)) {
+                    &__group {
+                        position: relative;
+                        padding-bottom: 3em;
+                    }
+                    &__picture {
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        width: 5em;
+                        margin: 0 1.5em -1.5em;
+                    }
+                }
+            }
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,120 @@
+$select: ".content" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "Shared/scss/templates/base/abstracts/list";
+
+@mixin base {
+    #{$select} {
+        &__text {
+            @include space.between-flow-elements($gap: 2rem) {
+            }
+        }
+
+        @content;
+    }
+}
+
+@mixin sub-page {
+    #{$select} {
+        &--sub-page {
+            font-size: max(16px, 1em);
+            text-align: left;
+
+            ol,
+            ul {
+                @include space.between-flow-elements($gap: 3rem) {
+                }
+                margin-left: 3.5rem;
+
+                ol,
+                ul {
+                    margin-left: 2.5rem;
+
+                    + * {
+                        margin-top: 2.5rem;
+                    }
+                }
+
+                ol {
+                    list-style: lower-alpha;
+                }
+            }
+
+            #{$select} {
+                &__text {
+                    @include space.between-flow-elements($gap: 2rem) {
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin reviews {
+    #{$select} {
+        &--reviews {
+            #{$select} {
+                &__review {
+                    margin: 0 0 1em;
+                    padding: 1em 0;
+                }
+
+                &__customer-type {
+                    display: block;
+                    font-size: 0.7em;
+                    font-size: clamp(13px, 0.7em, 20px);
+                    font-weight: 400;
+                    text-transform: none;
+                }
+
+                &__review + #{$select}__review {
+                    border-top: 2px solid currentColor;
+                }
+                &__stars {
+                    max-width: 7.7em;
+                    margin: 1em 0;
+                    overflow: hidden;
+                    img {
+                        min-width: 7.7em;
+                    }
+                    &--4 {
+                        max-width: 6.5em;
+                    }
+                    &--3 {
+                        max-width: 4.8em;
+                    }
+                    &--2 {
+                        max-width: 3em;
+                    }
+                    &--1 {
+                        max-width: 1.5em;
+                    }
+                }
+            }
+
+            [itemProp="reviewRating"],
+            [itemProp="itemReviewed"] {
+                display: none;
+            }
+
+            [itemProp="author"] {
+                font-weight: bold;
+                font-size: 1.2em;
+                &::before {
+                    content: "- ";
+                }
+            }
+
+            @content;
+        }
+    }
+}

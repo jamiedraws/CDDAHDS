@@ -1,0 +1,72 @@
+// utils
+@use "Shared/scss/templates/base/utils/scope";
+@use "./../utils/contain";
+@use "./../utils/element-controller";
+@use "./../utils/disclosure";
+@use "./../utils/bkg";
+@use "./../utils/container";
+
+// components
+@use "./../components/button";
+@use "./../components/payment";
+@use "./../components/banner";
+
+@use "./../components/card";
+
+// layouts
+@use "./../layouts/content";
+@use "./../layouts/main-offer";
+@use "./../layouts/accordion";
+@use "./../layouts/slide";
+@use "./../layouts/brand-desc";
+@use "./../layouts/customer-reviews";
+@use "./../layouts/use";
+@use "./../layouts/product-beauty-shot";
+@use "./../layouts/product-video";
+@use "./../layouts/product-features";
+
+@mixin base {
+    // components
+    @include scope.for-template {
+        @include button.base;
+    }
+
+    @content;
+}
+
+@mixin index {
+    // utils
+    @include contain.base;
+    @include element-controller.base;
+    @include disclosure.base;
+    @include bkg.base;
+    @include container.base;
+
+    // components
+    @include payment.base;
+    @include banner.base;
+    @include banner.ribbon;
+
+    // layouts
+    @include slide.base;
+    @include main-offer.base;
+
+    @include brand-desc.base;
+    @include customer-reviews.base;
+    @include use.base;
+    @include product-beauty-shot.base;
+    @include product-video.base;
+    @include product-features.base;
+
+    @content;
+}
+
+@mixin faq {
+    // components
+    @include card.base;
+
+    // layouts
+    @include accordion.base;
+
+    @content;
+}

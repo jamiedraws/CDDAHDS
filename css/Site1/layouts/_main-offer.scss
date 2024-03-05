@@ -1,0 +1,211 @@
+$select: ".main-offer" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/product-name";
+
+@mixin base {
+    #{$select} {
+        text-align: center;
+
+        @include background.image-container() {
+            background: linear-gradient(#fe9100 15%, #ffe25d, white 75%);
+        }
+
+        &__bkg {
+            @include background.image-background;
+
+            max-width: queries.cascade-em(1911);
+
+            img {
+                object-fit: contain;
+                object-position: bottom;
+            }
+
+            // reposition this to make it look better with text
+            &--fade {
+                @media all and (min-width: queries.get(document-mobile-portrait)) {
+                    bottom: unset;
+                    opacity: 0.3;
+                    top: 30em;
+                }
+            }
+        }
+
+        &__in {
+            padding-top: 6rem;
+        }
+
+        &__grid {
+            display: grid;
+            grid-template-areas: "title picture" "text picture" "price picture" ". picture";
+            grid-template-columns: queries.cascade-em(780) queries.cascade-em(
+                    621
+                );
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        &__group {
+            @include group.contain($gutter: 0.5rem) {
+            }
+        }
+
+        &__picture {
+            grid-area: picture;
+
+            max-width: queries.cascade-em(621);
+
+            img[width="621"] {
+                width: queries.cascade-em(621);
+            }
+
+            &--with-pop {
+                max-width: queries.cascade-em(663);
+
+                img[width="663"] {
+                    width: queries.cascade-em(663);
+                }
+            }
+        }
+
+        &__title {
+            grid-area: title;
+
+            @include product-name.word-stack($base-rem: 78) {
+                b {
+                    font-size: fonts.cascade-em(178);
+                }
+
+                sup {
+                    margin-right: calc(#{queries.cascade-em(61)} * -1);
+                }
+
+                > span:first-child {
+                    font-size: fonts.cascade-em(58);
+                    text-transform: uppercase;
+                    display: block;
+                    line-height: 1;
+                }
+            }
+        }
+
+        &__text {
+            grid-area: text;
+        }
+
+        &__desc {
+            font-size: fonts.cascade-em(33);
+            max-width: 20em;
+            margin: auto;
+        }
+
+        &__callout {
+            font-size: fonts.cascade-em(37);
+            font-weight: 900;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        &__price-button {
+            grid-area: price;
+        }
+
+        &__price {
+            align-self: center;
+            font-weight: bold;
+            font-size: fonts.cascade-em(80);
+            line-height: 1;
+        }
+
+        &__price-info {
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+
+            font-size: fonts.cascade-em(31);
+        }
+
+        &__promo-disclaimer {
+            padding: 1em 0;
+            font-size: 0.9em;
+            font-weight: 400;
+            border-top: 3px solid;
+            border-color: inherit;
+            b {
+                text-transform: uppercase;
+                color: #007600;
+            }
+        }
+
+        &__button {
+            align-self: center;
+        }
+
+        $bp: queries.set(660);
+
+        @media all and (min-width: $bp) {
+            &__picture {
+                margin-top: 8rem;
+                margin-bottom: -6rem;
+            }
+
+            &__text {
+                border-bottom: #{queries.cascade-em(4)} solid;
+                padding-bottom: 1rem;
+            }
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            font-size: 1.6vw;
+
+            &__title {
+                font-size: 3em;
+            }
+        }
+
+        @media all and (max-width: $bp) {
+            font-size: 2.7vw;
+
+            &__grid {
+                grid-template-areas: "title" "picture" "price" "text";
+                grid-template-columns: 1fr;
+                justify-content: center;
+            }
+
+            &__picture {
+                justify-self: center;
+                margin-bottom: -12em;
+                &--with-pop {
+                    margin-bottom: -6em;
+                }
+            }
+
+            &__title {
+                font-size: 3em;
+            }
+
+            &__text {
+                border-top: #{queries.cascade-em(4)} solid;
+                padding-top: 1rem;
+            }
+
+            &__bkg img {
+                object-position: center 47em;
+            }
+
+            &__promo-disclaimer {
+                font-size: 1em;
+            }
+        }
+
+        @content;
+    }
+}

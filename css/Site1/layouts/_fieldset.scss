@@ -1,0 +1,70 @@
+$select: ".fieldset" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+
+$size: 1rem;
+
+@mixin base {
+    #{$select} {
+        &__group {
+            @include group.contain($size);
+            @include group.flexchild(1 1 12em);
+        }
+
+        &__group > &__group {
+            margin: 0;
+        }
+
+        &__take-all {
+            flex-basis: 100%;
+        }
+
+        &__title {
+            padding: 0.5em;
+
+            font-size: fonts.cascade-em(32);
+
+            @include background.color-map(
+                $background-color: var(--color-first),
+                $text-color: white
+            ) {
+            }
+        }
+
+        &__content {
+            @include space.between-flow-elements;
+        }
+
+        @content;
+    }
+}
+
+@mixin frame {
+    #{$select} {
+        $space: $size;
+
+        &--frame {
+            outline: 1px solid;
+            padding: #{$space};
+
+            #{$select} {
+                &__container {
+                    padding: #{$size};
+                }
+
+                &__title {
+                    margin: -#{$space} -#{$space} #{$space};
+                }
+            }
+
+            @content;
+        }
+    }
+}

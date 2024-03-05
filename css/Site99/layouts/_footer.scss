@@ -1,0 +1,88 @@
+$select: ".footer" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "Shared/scss/templates/base/abstracts/list";
+@use "./../abstracts/product-name";
+
+@mixin base {
+    #{$select} {
+        &__in {
+            border-top: #{queries.cascade-em(6)} solid;
+        }
+
+        &__group {
+            @include group.contain($gutter: 1rem) {
+            }
+        }
+
+        &__logo-product-name {
+            flex-basis: queries.cascade-em(600);
+        }
+
+        &__nav {
+            flex-basis: queries.cascade-em(700);
+
+            font-weight: 500;
+            font-size: fonts.cascade-em(28);
+            text-transform: uppercase;
+        }
+
+        nav {
+            @include list.structure($offset: 1.5rem, $gap: 1rem);
+            @include list.convert-to-grid($width: 12em, $gap: 1em) {
+                column-rule: none;
+                overflow: visible;
+            }
+        }
+
+        address {
+            display: none;
+        }
+
+        a:not(:hover):not(:focus) {
+            text-decoration: none;
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__logo-product-name {
+                --section-block-margin: 3rem 0;
+            }
+
+            &__nav {
+                --section-block-margin: 3rem;
+
+                max-width: 23em;
+            }
+        }
+
+        @content;
+    }
+
+    @include logo-product-name();
+}
+
+@mixin logo-product-name {
+    #{$select} {
+        &--logo-product-name {
+            #{$select} {
+                &__logo {
+                    flex-basis: queries.cascade-em(204);
+                }
+
+                &__product-name {
+                    align-self: center;
+
+                    @include product-name.word-stack($base-rem: 34);
+                }
+            }
+
+            @content;
+        }
+    }
+}

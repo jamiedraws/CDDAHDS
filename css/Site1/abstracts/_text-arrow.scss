@@ -1,0 +1,37 @@
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+@use "Shared/scss/templates/base/config/colors";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/background";
+
+@mixin base($background-color: #000000, $font-color: #ffffff) {
+    $length: 3em;
+
+    @include background.color-map($background-color, $font-color);
+
+    margin-right: #{$length};
+    padding: 0.5em 1.5em;
+    position: relative;
+
+    &::after {
+        content: "";
+
+        top: 0;
+        bottom: 0;
+        right: calc(-#{$length} * 0.99);
+        position: absolute;
+
+        width: #{$length};
+
+        background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75 86.6'%3E%3Cpolygon points='75,43.3 0,0 0,86.6' fill='#{colors.get-hsla($background-color)}'/%3E%3C/svg%3E")
+            no-repeat;
+        background-size: cover;
+
+        transform-origin: left;
+        transform: scaleX(0.6);
+    }
+
+    @content;
+}

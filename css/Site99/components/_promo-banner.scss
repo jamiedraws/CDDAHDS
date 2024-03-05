@@ -1,0 +1,69 @@
+$select: ".promo-banner" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+@use "./../config/colors";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/text-arrow";
+
+@mixin base {
+    #{$select} {
+        flex: 1 1 100%;
+
+        text-align: center;
+        font-weight: 500;
+        font-size: fonts.cascade-em(38);
+
+        @include background.color-map(
+            $background-color: var(--color-first),
+            $text-color: var(--color-second)
+        ) {
+            padding: 0.5em;
+        }
+
+        &__group {
+            @include group.contain($gutter: 0.5rem) {
+            }
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__callout {
+            b {
+                color: white;
+            }
+        }
+
+        &__offer {
+            @include text-arrow.base(
+                colors.get(color-second),
+                colors.get(color-first)
+            );
+
+            display: flex;
+            align-items: center;
+
+            @include fonts.base-rem(18);
+            font-weight: 900;
+            text-transform: uppercase;
+
+            b {
+                font-size: fonts.cascade-em(28);
+                font-weight: 900;
+                margin-inline-start: 1rem;
+            }
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__callout {
+                font-size: 0.8em;
+            }
+        }
+
+        @content;
+    }
+}

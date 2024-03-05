@@ -1,0 +1,110 @@
+@use "sass:math";
+
+$base: 1 !default;
+$scroll-offset: 2em !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// layouts
+@use "Shared/scss/templates/base/layouts/document";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/background";
+
+@mixin base {
+    @include document.base;
+
+    h1 {
+        font-size: fonts.cascade-rem(78);
+    }
+
+    h2,
+    legend {
+        font-size: min(3rem, 3.5rem);
+    }
+
+    h3 {
+        font-size: min(2.5rem, 3rem);
+    }
+
+    ol {
+        list-style: decimal;
+    }
+
+    input {
+        line-height: inherit;
+    }
+
+    button,
+    input,
+    select {
+        font-size: queries.rem(25);
+
+        @supports (font-size: max(16px, 1em)) {
+            font-size: max(16px, queries.rem(25));
+        }
+    }
+
+    fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    a[href^="mailto:"],
+    a[href^="tel:"] {
+        display: inline-block;
+    }
+
+    sup {
+        bottom: 0.75em;
+    }
+}
+
+@function get-scroll-offset($element-height: 100) {
+    @return calc(#{queries.em($element-height)} + #{$scroll-offset});
+}
+
+@function convert-px-to-vw($base-font-size: 16px, $viewport-width: 1920px) {
+    @return calc(100vw * ($base-font-size / $viewport-width));
+}
+
+@mixin root {
+    --font-family-first: "HCo Gotham", sans-serif;
+
+    --color-first: #092d74;
+    --color-second: #ffe000;
+    --color-third: #fea30b;
+
+    --body-font-color: var(--color-first);
+    --body-background-color: white;
+    --body-font-family: var(--font-family-first);
+    --button-font-family: var(--font-family-first);
+
+    scroll-behavior: smooth;
+    scroll-padding-top: get-scroll-offset(135);
+
+    // $viewport-width is designed to match the current viewport width of the browser.
+    // for a 1:1 ratio of pixel-based conversions during development, set $viewport-width to the width of the browser and $base-font-size to 16px.
+    --max-font-size: #{convert-px-to-vw(
+            $base-font-size: 13px,
+            $viewport-width: 1920px
+        )};
+    font-size: var(--max-font-size);
+
+    @media all and (max-width: queries.get(section-max)) {
+        font-size: clamp(#{math.div($base, 2)}rem, 3.5vw, var(--max-font-size));
+    }
+}
+
+@mixin body {
+    font: fonts.rem(25) / 1.45 var(--body-font-family);
+    @include fonts.base-em(25);
+
+    @include background.color-map(
+        $background-color: var(--body-background-color),
+        $text-color: var(--body-font-color)
+    );
+}

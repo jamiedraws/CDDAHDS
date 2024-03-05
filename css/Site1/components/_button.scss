@@ -1,0 +1,74 @@
+$select: ".button" !default;
+
+// config
+@use "../config/fonts";
+@use "./../config/queries";
+
+// components
+@use "Shared/scss/templates/base/components/button";
+
+@mixin base {
+    @include button.base {
+        --background-color: linear-gradient(90deg, #f37021, #ffa400, #f37021);
+        --background-color-rollover: white;
+        --border-color: var(--color-first);
+        --text-color: white;
+        --text-color-rollover: var(--color-first);
+        --button-padding: 0.75em;
+
+        padding: var(--button-padding);
+        border: 2px solid var(--border-color);
+        color: var(--text-color);
+
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font: bold fonts.rem(32) var(--body-font-family);
+
+        &:before {
+            background: var(--background-color);
+        }
+
+        &::after {
+            background: var(--background-color-rollover);
+        }
+
+        &::before,
+        &::after,
+        > span {
+            border-radius: inherit;
+        }
+
+        &:link,
+        &:visited {
+            text-decoration: none;
+        }
+
+        &:hover,
+        &:focus {
+            color: var(--text-color-rollover);
+            border-color: var(--text-color-rollover);
+        }
+
+        &[aria-expanded="true"] {
+            color: var(--background-color);
+            border-color: var(--text-color);
+
+            &::after {
+                background: var(--text-color);
+                opacity: 1;
+            }
+        }
+
+        * {
+            text-decoration: none;
+        }
+
+        // @media all and (min-width: queries.get(document-mobile-portrait)) {
+        //     --button-padding: 0.75em 1.25em;
+        // }
+    }
+
+    #{$select} {
+        @content;
+    }
+}

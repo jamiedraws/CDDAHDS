@@ -1,0 +1,105 @@
+@charset "UTF-8";
+.form--radio-rate {
+  --rate-color-default: gray;
+  --rate-color-highlight: var(--color-third);
+}
+.form--radio-rate input[type=radio] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+.form--radio-rate input[type=radio]:focus ~ .form__rates {
+  outline: 1px solid;
+  outline: -webkit-focus-ring-color auto 1px;
+}
+.form--radio-rate input[type=radio][id^=RATE1]:checked ~ .form__rates .form__rate:nth-child(-n+1)::after {
+  z-index: 1;
+}
+.form--radio-rate input[type=radio][id^=RATE2]:checked ~ .form__rates .form__rate:nth-child(-n+2)::after {
+  z-index: 1;
+}
+.form--radio-rate input[type=radio][id^=RATE3]:checked ~ .form__rates .form__rate:nth-child(-n+3)::after {
+  z-index: 1;
+}
+.form--radio-rate input[type=radio][id^=RATE4]:checked ~ .form__rates .form__rate:nth-child(-n+4)::after {
+  z-index: 1;
+}
+.form--radio-rate input[type=radio][id^=RATE5]:checked ~ .form__rates .form__rate:nth-child(-n+5)::after {
+  z-index: 1;
+}
+.form--radio-rate .form__label {
+  flex-basis: 100%;
+}
+.form--radio-rate .form__rates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+  margin: -0.5rem;
+  margin: 0.5rem 0;
+}
+.form--radio-rate .form__rates > * {
+  flex: 0 1 auto;
+}
+.form--radio-rate .form__rates > * {
+  margin: 0.5rem;
+}
+.form--radio-rate .form__rate {
+  font-size: 2em;
+  width: 1em;
+  height: 1em;
+  justify-content: center;
+  align-items: center;
+}
+.form--radio-rate .form__rate::before, .form--radio-rate .form__rate::after {
+  display: block;
+  overflow: hidden;
+  content: "★";
+}
+.form--radio-rate .form__rate, .form--radio-rate .form__rate::before {
+  position: relative;
+}
+.form--radio-rate .form__rate::before {
+  color: var(--rate-color-default);
+}
+.form--radio-rate .form__rate::after {
+  color: var(--rate-color-highlight);
+  position: absolute;
+  z-index: -1;
+}
+
+.status-screen--product-review-form {
+  z-index: 11;
+}
+.product-review-form__header {
+  margin-bottom: 3rem;
+}
+.product-review-form__desc {
+  font-size: 1em;
+}
+.product-review-form__fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+  margin: -1rem;
+}
+.product-review-form__fieldset > * {
+  flex: 0 1 auto;
+}
+.product-review-form__fieldset > * {
+  margin: 1rem;
+}
+.product-review-form__take-some {
+  flex-grow: 1;
+  flex-basis: 10em;
+}
+.product-review-form__take-all {
+  flex-basis: 100%;
+}
+.product-review-form__button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/*# sourceMappingURL=review.css.map */

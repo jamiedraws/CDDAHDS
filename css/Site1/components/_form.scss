@@ -1,0 +1,339 @@
+$select: ".form" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// components
+@use "Shared/scss/templates/base/components/form";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+
+@mixin base {
+    @include form.base;
+
+    #{$select} {
+        &__field {
+            min-height: queries.cascade-em(80);
+        }
+
+        textarea {
+            font-size: fonts.em(16);
+        }
+
+        @content;
+    }
+}
+
+@mixin field-label {
+    @include form.field-label;
+
+    #{$select} {
+        &__field-label {
+            align-items: flex-start;
+            font-size: fonts.em(16);
+
+            label,
+            [role="alert"] {
+                font-size: inherit;
+            }
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin label-combobox {
+    @include form.label-combobox;
+
+    #{$select} {
+        &--label-combobox {
+            @include group.gutter(0.5em);
+
+            #{$select} {
+                &__label {
+                    margin-right: 0;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin icon-field-combobox {
+    @include form.icon-field-combobox;
+
+    #{$select} {
+        &--icon-field-combobox {
+            flex: 1;
+            justify-content: flex-start;
+            align-items: stretch;
+
+            #{$select} {
+                &__label {
+                    align-self: center;
+                }
+
+                &__field {
+                    padding: 0.5em;
+                }
+
+                &__input {
+                    flex-basis: 1em;
+                    width: 1em;
+                    font-size: inherit;
+                }
+
+                &__contain {
+                    font-size: 0.9em;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin checkbox {
+    #{$select} {
+        @include form.checkbox($size: 2em);
+
+        &--checkbox {
+            #{$select} {
+                &__label {
+                    flex: 1;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin radio {
+    #{$select} {
+        @include form.radio($size: 2em);
+
+        &--radio {
+            #{$select} {
+                &__label {
+                    flex: 1;
+                }
+
+                &__desc {
+                    display: block;
+                    font-size: fonts.em(22);
+                    font-weight: 900;
+                    font-style: italic;
+                    text-transform: uppercase;
+                }
+
+                &__radio {
+                    font-size: 0.7em;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin map-radio-rate-by-id($id, $count) {
+    @for $i from 1 through $count {
+        input[type="radio"][id^="#{$id}#{$i}"]:checked
+            ~ #{$select}__rates
+            #{$select} {
+            &__rate {
+                &:nth-child(-n + #{$i})::after {
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
+
+@mixin radio-rate {
+    #{$select} {
+        &--radio-rate {
+            --rate-color-default: gray;
+            --rate-color-highlight: var(--color-third);
+
+            input[type="radio"] {
+                opacity: 0;
+                position: absolute;
+                top: 0;
+            }
+
+            input[type="radio"]:focus ~ #{$select} {
+                &__rates {
+                    outline: 1px solid;
+                    outline: -webkit-focus-ring-color auto 1px;
+                }
+            }
+
+            @include map-radio-rate-by-id($id: "RATE", $count: 5);
+
+            #{$select} {
+                &__label {
+                    flex-basis: 100%;
+                }
+
+                &__rates {
+                    @include group.contain($gutter: 0.5rem) {
+                    }
+
+                    margin: 0.5rem 0;
+                }
+
+                &__rate {
+                    font-size: 2em;
+                    width: 1em;
+                    height: 1em;
+
+                    justify-content: center;
+                    align-items: center;
+
+                    &::before,
+                    &::after {
+                        display: block;
+                        overflow: hidden;
+                        content: "\2605";
+                    }
+
+                    &,
+                    &::before {
+                        position: relative;
+                    }
+
+                    &::before {
+                        color: var(--rate-color-default);
+                    }
+
+                    &::after {
+                        color: var(--rate-color-highlight);
+
+                        position: absolute;
+                        z-index: -1;
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin field-icon {
+    @include form.field-icon;
+
+    #{$select} {
+        &--field-icon {
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin select {
+    @include form.select;
+
+    #{$select} {
+        &--select {
+            #{$select} {
+                &__button {
+                    width: queries.cascade-em(80);
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin inline-combobox-label {
+    @include form.inline-combobox-label;
+
+    #{$select} {
+        &--inline-combobox-label {
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin cvv {
+    #{$select} {
+        &__cvv &__link {
+            font: inherit;
+            color: currentColor;
+
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
+
+        &__cvv &__field {
+            flex-basis: queries.cascade-em(128);
+        }
+    }
+}
+
+@mixin field-button {
+    #{$select} {
+        &--field-button {
+            #{$select} {
+                &__contain {
+                    border: 1px solid currentColor;
+                    padding: 2px;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin field-button-label {
+    @include form.field-button-label;
+
+    #{$select} {
+        &--field-button-label {
+            label {
+                align-self: center;
+                flex: 0 1 auto;
+            }
+
+            #{$select} {
+                &__field-label {
+                    align-items: stretch;
+                }
+
+                &__field {
+                    flex-basis: 15rem;
+                }
+
+                &__button {
+                    flex: 0 0 auto;
+                }
+            }
+
+            @media all and (max-width: queries.get(document-mobile-portrait)) {
+                label {
+                    flex: 1 1 100%;
+                }
+            }
+
+            @content;
+        }
+    }
+}

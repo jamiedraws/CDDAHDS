@@ -1,0 +1,8 @@
+$select: ".bkg" !default;
+
+@mixin base {
+    #{$select} {
+        background: linear-gradient(white 60%, #a1d6ee);
+        @content;
+    }
+}
